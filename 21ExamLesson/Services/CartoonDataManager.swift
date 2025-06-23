@@ -1,6 +1,16 @@
 import UIKit
 
-final class CartoonDataManager {
+protocol CartoonDataProcessing {
+    
+    func addCartoon(cartoon: [CartoonModel])
+    func getCurrentCartoon() -> CartoonModel
+    func getCurrentCartoonNext() -> CartoonModel
+    func getCurrentCartoonLast() -> CartoonModel
+    func getFirstCartoon() -> CartoonModel
+    
+}
+
+final class CartoonDataManager: CartoonDataProcessing {
     private var cartoons: [CartoonModel] = []
     private var currentIndex = 0
     

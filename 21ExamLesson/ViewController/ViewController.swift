@@ -1,6 +1,7 @@
 import UIKit
 
 final class ViewController: UIViewController {
+    
     private var textLabel = UILabel()
     
     private let lastButton = CustomButton(
@@ -22,7 +23,7 @@ final class ViewController: UIViewController {
     private var imageView = ImageView(imageName: "berserk")
     
     private let cartoonManager = CartoonManager()
-    private var cartoonDataManager = CartoonDataManager()
+    private var cartoonDataManager: CartoonDataProcessing?
     
     private let imageLabelStack = UIStackView()
     private let twoButtonStack = UIStackView()
@@ -47,8 +48,8 @@ final class ViewController: UIViewController {
         view.backgroundColor = .white
         setupLayout()
         
-        cartoonDataManager.addCartoon(cartoon: cartoonManager.getCartoon())
-        item = cartoonDataManager.getCurrentCartoon()
+        cartoonDataManager?.addCartoon(cartoon: cartoonManager.getCartoon())
+        item = cartoonDataManager?.getCurrentCartoon()
         updateUI()
     }
     //MARK: - Action Button
@@ -56,7 +57,7 @@ final class ViewController: UIViewController {
     private func actionButton() {
         
         let actionFirst = UIAction { _ in
-            self.item = self.cartoonDataManager.getFirstCartoon()
+            self.item = self.cartoonDataManager?.getFirstCartoon()
             self.updateUI()
         }
         firstButton.addAction(
@@ -66,7 +67,7 @@ final class ViewController: UIViewController {
         
         let actionNext = UIAction { _ in
             
-            self.item = self.cartoonDataManager.getCurrentCartoonNext()
+            self.item = self.cartoonDataManager?.getCurrentCartoonNext()
             self.updateUI()
         }
         nextButton.addAction(
@@ -75,7 +76,7 @@ final class ViewController: UIViewController {
         )
         
         let actionLast = UIAction { _ in
-            self.item = self.cartoonDataManager.getCurrentCartoonLast()
+            self.item = self.cartoonDataManager?.getCurrentCartoonLast()
             self.updateUI()
         }
         lastButton.addAction(

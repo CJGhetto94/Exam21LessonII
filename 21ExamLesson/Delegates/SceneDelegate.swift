@@ -8,13 +8,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = ViewController()
+        
+        let cartoonManager = CartoonManager()
+        let cartoonDataManager = CartoonDataManager()
+        let viewController = ViewController()
+        viewController.cartoonDataManager = cartoonDataManager
+        viewController.cartoonDataManager?.addCartoon(cartoon: cartoonManager.getCartoon())
+        
+        window?.rootViewController = viewController
         window?.makeKeyAndVisible()
-        
-        
-    }
     
+    }
 }
 

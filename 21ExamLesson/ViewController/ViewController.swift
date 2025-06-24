@@ -22,8 +22,7 @@ final class ViewController: UIViewController {
     
     private var imageView = ImageView(imageName: "berserk")
     
-    private let cartoonManager = CartoonManager()
-    private var cartoonDataManager: CartoonDataProcessing?
+    var cartoonDataManager: CartoonDataProcessing?
     
     private let imageLabelStack = UIStackView()
     private let twoButtonStack = UIStackView()
@@ -48,7 +47,6 @@ final class ViewController: UIViewController {
         view.backgroundColor = .white
         setupLayout()
         
-        cartoonDataManager?.addCartoon(cartoon: cartoonManager.getCartoon())
         item = cartoonDataManager?.getCurrentCartoon()
         updateUI()
     }
@@ -104,7 +102,10 @@ private extension ViewController {
         twoButtonStack.alignment = .fill
         twoButtonStack.spacing = 100
         
-        twoButtonStack.addSomeStackView(lastButton, nextButton)
+        twoButtonStack.addSomeStackView(
+            lastButton,
+            nextButton
+        )
     }
     func setupStackVertical() {
         imageLabelStack.axis = .vertical
@@ -112,7 +113,10 @@ private extension ViewController {
         imageLabelStack.alignment = .center
         imageLabelStack.spacing = 15
         
-        imageLabelStack.addSomeStackView(imageView, textLabel)
+        imageLabelStack.addSomeStackView(
+            imageView,
+            textLabel
+        )
     }
 }
 //MARK: - Setup Layout

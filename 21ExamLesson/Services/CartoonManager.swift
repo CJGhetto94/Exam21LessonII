@@ -1,6 +1,10 @@
 import UIKit
 
-final class CartoonManager {
+protocol OutPutsManager {
+    func getCartoon() -> [CartoonModel]
+}
+
+final class CartoonManager: OutPutsManager {
     func getCartoon() -> [CartoonModel] {
         [
             CartoonModel(imageName: "berserk", cartoonName: "Berserk"),

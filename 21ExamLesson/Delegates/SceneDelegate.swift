@@ -13,12 +13,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let cartoonManager = CartoonManager()
         let cartoonDataManager = CartoonDataManager()
         let viewController = ViewController()
+        let cartoons = cartoonManager.getCartoon().sorted(by: <)
+        
+        cartoonDataManager.addCartoon(cartoon: cartoons)
         viewController.cartoonDataManager = cartoonDataManager
-        viewController.cartoonDataManager?.addCartoon(cartoon: cartoonManager.getCartoon())
+        printSortedArray()
         
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
-    
+        
+        
+        func printSortedArray() {
+            for descript in cartoonManager.getCartoon() {
+                print(descript.description)
+            }
+        }
     }
 }
-

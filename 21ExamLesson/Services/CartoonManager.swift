@@ -1,10 +1,7 @@
 import UIKit
 
-protocol OutPutsManager {
-    func getCartoon() -> [CartoonModel]
-}
-
-final class CartoonManager: OutPutsManager {
+final class CartoonManager {
+        
     func getCartoon() -> [CartoonModel] {
         [
             CartoonModel(imageName: "berserk", cartoonName: "Berserk"),
@@ -20,4 +17,3 @@ final class CartoonManager: OutPutsManager {
         ]
     }
 }
-

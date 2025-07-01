@@ -33,10 +33,13 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        [lastButton, nextButton, firstButton].forEach { button in
+            button.delegate = self
+        }
+        
         setupStackVertical()
         setupStackHorizontal()
         setupLabel()
-        actionButton()
         
         view.addSomeView(
             imageLabelStack,
@@ -50,50 +53,20 @@ final class ViewController: UIViewController {
         item = cartoonDataManager?.getCurrentCartoon()
         updateUI()
     }
-    //MARK: - Action Button
-    @objc
-    private func actionButton() {
-        
-        let actionFirst = UIAction { _ in
-            self.item = self.cartoonDataManager?.getFirstCartoon()
-            self.updateUI()
-        }
-        firstButton.addAction(
-            actionFirst,
-            for: .touchUpInside
-        )
-        
-        let actionNext = UIAction { _ in
-            
-            self.item = self.cartoonDataManager?.getCurrentCartoonNext()
-            self.updateUI()
-        }
-        nextButton.addAction(
-            actionNext,
-            for: .touchUpInside
-        )
-        
-        let actionLast = UIAction { _ in
-            self.item = self.cartoonDataManager?.getCurrentCartoonLast()
-            self.updateUI()
-        }
-        lastButton.addAction(
-            actionLast,
-            for: .touchUpInside
-        )
-    }
-    //MARK: - Udpate UI
-    private func updateUI() {
-        imageView.updateImageView(item.imageName)
-        textLabel.text = item.cartoonName
-    }
+    
     //MARK: - Setup Label
     private func setupLabel() {
         textLabel.textColor = .black
         textLabel.font = .systemFont(ofSize: 20)
         textLabel.textAlignment = .center
     }
+    //MARK: - Udpate UI
+    private func updateUI() {
+        imageView.updateImageView(item.imageName)
+        textLabel.text = item.cartoonName
+    }
 }
+
 //MARK: - Setup Stack
 private extension ViewController {
     func setupStackHorizontal() {
@@ -168,5 +141,20 @@ private extension ViewController {
                 multiplier: 0.5
             )
         ])
+    }
+}
+//MARK: - ICustomButtonDelegate
+extension ViewController: ICustomButtonDelegate {
+    func actionButton(_ button: UIButton) {
+        if button == nextButton {
+            self.item = self.cartoonDataManager?.getCurrentCartoonNext()
+            self.updateUI()
+        } else if button == lastButton {
+            self.item = self.cartoonDataManager?.getCurrentCartoonLast()
+            self.updateUI()
+        } else {
+            self.item = self.cartoonDataManager?.getFirstCartoon()
+            self.updateUI()
+        }
     }
 }

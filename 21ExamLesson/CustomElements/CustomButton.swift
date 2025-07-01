@@ -2,9 +2,12 @@ import UIKit
 
 final class CustomButton: UIButton {
     
+    var delegate: ICustomButtonDelegate?
+    
     init(textButton: String, bgColor: UIColor, setTitleColor: UIColor) {
         super.init(frame: .zero)
         setupButton(text: textButton, bgColor: bgColor, titleColor: setTitleColor)
+        addAction()
     }
     
     @available(*, unavailable)
@@ -37,4 +40,23 @@ private extension CustomButton {
 //MARK: - Constant button
 enum Constant {
     static let cornerRadius: CGFloat = 10
+}
+
+//MARK: - Action Button
+extension CustomButton {
+    
+    private func addAction() {
+        
+        let action = UIAction { _ in
+            self.delegate?.actionButton(self)
+        }
+        addAction(
+            action,
+            for: .touchUpInside
+        )
+    }
+}
+//MARK: - IButtonPushed
+protocol ICustomButtonDelegate {
+    func actionButton(_ button: UIButton)
 }

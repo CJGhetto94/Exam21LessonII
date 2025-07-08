@@ -32,6 +32,7 @@ final class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Hello world")
         
         nextButton.nameOfElement = "Next Button"
         firstButton.nameOfElement = "First Button"
@@ -165,3 +166,4 @@ extension ViewController: ICustomButtonDelegate {
         updateUI()
     }
 }
+

@@ -33,6 +33,15 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        nextButton.nameOfElement = "Next Button"
+        firstButton.nameOfElement = "First Button"
+        lastButton.nameOfElement = "Last Button"
+        imageView.nameOfElement = "The Picture"
+        
+        print(view.setViewOfUIButton(nextButton, firstButton,lastButton))
+        view.setViewElements(nextButton, firstButton, lastButton, imageView)
+        
+        
         [lastButton, nextButton, firstButton].forEach { button in
             button.delegate = self
         }
@@ -147,14 +156,12 @@ private extension ViewController {
 extension ViewController: ICustomButtonDelegate {
     func actionButton(_ button: UIButton) {
         if button == nextButton {
-            self.item = self.cartoonDataManager?.getCurrentCartoonNext()
-            self.updateUI()
+            item = cartoonDataManager?.getCurrentCartoonNext()
         } else if button == lastButton {
-            self.item = self.cartoonDataManager?.getCurrentCartoonLast()
-            self.updateUI()
+            item = cartoonDataManager?.getCurrentCartoonLast()
         } else {
-            self.item = self.cartoonDataManager?.getFirstCartoon()
-            self.updateUI()
+            item = cartoonDataManager?.getFirstCartoon()
         }
+        updateUI()
     }
 }

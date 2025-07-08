@@ -2,6 +2,8 @@ import UIKit
 
 final class CustomButton: UIButton {
     
+    var nameOfElement: String?
+    
     var delegate: ICustomButtonDelegate?
     
     init(textButton: String, bgColor: UIColor, setTitleColor: UIColor) {

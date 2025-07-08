@@ -1,7 +1,6 @@
 import UIKit
 
 final class CartoonManager {
-    
     func getCartoon() -> [CartoonModel] {
         [
             CartoonModel(imageName: "berserk", cartoonName: "Berserk"),

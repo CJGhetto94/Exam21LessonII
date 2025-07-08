@@ -11,6 +11,7 @@ protocol CartoonDataProcessing {
 }
 
 final class CartoonDataManager: CartoonDataProcessing {
+    
     private var cartoons: [CartoonModel] = []
     private var currentIndex = 0
     

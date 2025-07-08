@@ -1,7 +1,6 @@
 import UIKit
 
 struct CartoonModel {
-    
     let imageName: String
     let cartoonName: String
 }
@@ -10,7 +9,7 @@ struct CartoonModel {
 //MARK: - Comporable
 extension CartoonModel: Comparable {
     static func < (lhs: CartoonModel, rhs: CartoonModel) -> Bool {
-        lhs.imageName < lhs.imageName
+        lhs.imageName < rhs.imageName
     }
 }
 //MARK: - CustomStringConvertible

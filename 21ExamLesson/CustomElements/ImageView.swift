@@ -2,6 +2,8 @@ import UIKit
 
 final class ImageView: UIImageView {
     
+    var nameOfElement: String?
+    
     init(imageName: String) {
         super.init(frame: .zero)
         

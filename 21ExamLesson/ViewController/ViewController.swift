@@ -3,6 +3,7 @@ import UIKit
 final class ViewController: UIViewController {
     
     private var textLabel = UILabel()
+    private var textLabelHide = UILabel()
     
     private let lastButton = CustomButton(
         textButton: "Last",
@@ -50,11 +51,14 @@ final class ViewController: UIViewController {
         setupStackVertical()
         setupStackHorizontal()
         setupLabel()
+        setupLabelHide()
+        
         
         view.addSomeView(
             imageLabelStack,
             twoButtonStack,
-            firstButton
+            firstButton,
+            textLabelHide
         )
         
         view.backgroundColor = .white
@@ -69,6 +73,12 @@ final class ViewController: UIViewController {
         textLabel.textColor = .black
         textLabel.font = .systemFont(ofSize: 20)
         textLabel.textAlignment = .center
+    }
+    private func setupLabelHide() {
+        textLabelHide.text = "Будущий текст"
+        textLabelHide.textColor = .black
+        textLabelHide.font = .systemFont(ofSize: 20)
+        textLabelHide.textAlignment = .center
     }
     //MARK: - Udpate UI
     private func updateUI() {
@@ -106,7 +116,7 @@ private extension ViewController {
 private extension ViewController {
     func setupLayout() {
         
-        [imageLabelStack,twoButtonStack,firstButton,lastButton].forEach{view in
+        [imageLabelStack,twoButtonStack,firstButton,lastButton, textLabelHide].forEach{view in
             view.translatesAutoresizingMaskIntoConstraints = false}
         
         NSLayoutConstraint.activate([
@@ -149,6 +159,21 @@ private extension ViewController {
             firstButton.widthAnchor.constraint(
                 equalTo: twoButtonStack.widthAnchor,
                 multiplier: 0.5
+            ),
+            
+            textLabelHide.topAnchor.constraint(
+                equalTo: imageLabelStack.bottomAnchor, constant: 5
+            ),
+            textLabelHide.centerXAnchor.constraint(
+                equalTo: imageLabelStack.centerXAnchor
+            ),
+            textLabelHide.widthAnchor.constraint(
+                equalTo: view.widthAnchor,
+                multiplier: 0.8
+            ),
+            textLabelHide.heightAnchor.constraint(
+                equalTo: view.heightAnchor,
+                multiplier: 0.1
             )
         ])
     }
@@ -164,6 +189,12 @@ extension ViewController: ICustomButtonDelegate {
             item = cartoonDataManager?.getFirstCartoon()
         }
         updateUI()
+    }
+}
+//MARK: - Override touchesBegan
+extension ViewController {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        textLabelHide.text = item.cartoonName
     }
 }
 

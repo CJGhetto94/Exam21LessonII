@@ -2,8 +2,8 @@ import UIKit
 
 final class ViewController: UIViewController {
     
-    private var textLabel = UILabel()
-    private var textLabelHide = UILabel()
+    private let textLabel = UILabel()
+    private let textLabelHide = UILabel()
     
     private let lastButton = CustomButton(
         textButton: "Last",

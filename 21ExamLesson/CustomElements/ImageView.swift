@@ -21,7 +21,7 @@ final class ImageView: UIImageView {
         layer.cornerRadius = 20
         clipsToBounds = true
         contentMode = .scaleAspectFit
-        
+      //  isHidden = true
     }
     
     func updateImageView(_ imageName: String) {

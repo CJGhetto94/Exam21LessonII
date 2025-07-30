@@ -1,14 +1,10 @@
-
-//
 //  Created by mac on 23.07.2025.
 //
 import UIKit
 
-
 class FindImageViewController: UIViewController {
     
     private var imageView = ImageView(imageName: "")
-    
     
     private let textLabel = UILabel()
     private let textLabelFindImage = UILabel()
@@ -27,14 +23,13 @@ class FindImageViewController: UIViewController {
     var delegate: ICustomButtonDelegate?
     
     var cartoonDataManager: CartoonDataProcessing?
-    private var item: CartoonModel!
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonInput.delegate = self
         textFieldInput.delegate = self
-    
+        
         view.addSomeView(
             textLabel,
             textFieldInput,
@@ -45,7 +40,7 @@ class FindImageViewController: UIViewController {
         
         setupInterface()
         setupLayout()
-    
+        
     }
 }
 //MARK: - Setup Interface View
@@ -72,6 +67,8 @@ private extension FindImageViewController {
         textLabelFindImage.textColor = .black
         textLabelFindImage.textAlignment = .center
         textLabelFindImage.font = UIFont.systemFont(ofSize: 15)
+        textLabelFindImage.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        textLabelFindImage.widthAnchor.constraint(equalToConstant: 250).isActive = true
     }
     
     func setupTextField() {
@@ -159,44 +156,54 @@ private extension FindImageViewController {
                 equalToConstant: 100
             ),
             
-            imageLabelStack.topAnchor.constraint(equalTo: buttonInput.topAnchor, constant: 30),
-            imageLabelStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageLabelStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            imageLabelStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
+            imageLabelStack.topAnchor.constraint(
+                equalTo: buttonInput.topAnchor,
+                constant: 30
+            ),
+            imageLabelStack.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor
+            ),
+            imageLabelStack.widthAnchor.constraint(
+                equalTo: view.widthAnchor,
+                multiplier: 0.8
+            ),
+            imageLabelStack.heightAnchor.constraint(
+                equalTo: view.heightAnchor,
+                multiplier: 0.3
+            )
         ])
     }
 }
 //MARK: - ICustomButtonDelegate
 extension FindImageViewController: ICustomButtonDelegate {
     func actionButton(_ button: UIButton) {
-        
+        textFieldInput.endEditing(true)
     }
-    
-    
 }
 //MARK: - UITextFieldDelegate
 extension FindImageViewController: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let text = textField.text ?? ""
         if !text.isEmpty {
-            
+            textField.endEditing(true)
         }
         return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
+        showText()
         func showText() {
             let text = textField.text ?? ""
             let arrayImageModel = cartoonDataManager?.findImage(text)
             
             if let findImage = arrayImageModel?.imageName {
                 imageView.isHidden = false
-                imageView.updateImageView(findImage) // Предполагается, что здесь нужно использовать findImage
-                textLabelFindImage.text = text
+                imageView.updateImageView(findImage)
+                textLabelFindImage.isHidden = false
+                textLabelFindImage.text = arrayImageModel?.cartoonName
                 textLabel.text = "Такая картинка есть"
             } else {
-                // Обработка случая, когда картинка не найдена
                 imageView.isHidden = true
                 textLabelFindImage.text = ""
                 textLabel.text = "Картинка не найдена"
@@ -204,12 +211,9 @@ extension FindImageViewController: UITextFieldDelegate {
         }
     }
 }
-    //MARK: - Override touchesBegan
+//MARK: - Override touchesBegan
 extension FindImageViewController {
-        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            
-        }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        textFieldInput.endEditing(true)
     }
-
-
-
+}

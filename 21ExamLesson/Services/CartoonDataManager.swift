@@ -8,6 +8,7 @@ protocol CartoonDataProcessing {
     func getCurrentCartoonLast() -> CartoonModel
     func getFirstCartoon() -> CartoonModel
     func findImage(_ inputName: String) -> CartoonModel?
+    
 }
 
 final class CartoonDataManager: CartoonDataProcessing {
@@ -52,3 +53,4 @@ final class CartoonDataManager: CartoonDataProcessing {
         return nil
     }
 }
+

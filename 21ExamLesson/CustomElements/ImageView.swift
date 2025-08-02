@@ -8,7 +8,7 @@ final class ImageView: UIImageView {
         super.init(frame: .zero)
         
         setupImageView(imageName)
-        setupLayout()
+     //   setupLayout()
     }
     
     @available(*, unavailable)
@@ -21,7 +21,7 @@ final class ImageView: UIImageView {
         layer.cornerRadius = 20
         clipsToBounds = true
         contentMode = .scaleAspectFit
-      //  isHidden = true
+        isUserInteractionEnabled = true
     }
     
     func updateImageView(_ imageName: String) {

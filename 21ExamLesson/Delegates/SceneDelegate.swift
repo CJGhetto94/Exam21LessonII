@@ -13,8 +13,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let cartoonManager = CartoonManager()
         let cartoonDataManager = CartoonDataManager()
         
-        let viewController = FindImageViewController()
-       // let viewController = ViewController()
+        let viewController = PanImageViewController()
+        //let viewController = FindImageViewController()
+        // let viewController = ViewController()
         
         let cartoons = cartoonManager.getCartoon().sorted(by: <)
         

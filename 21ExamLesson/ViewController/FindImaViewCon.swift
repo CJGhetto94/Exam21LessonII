@@ -2,7 +2,7 @@
 //
 import UIKit
 
-class FindImageViewController: UIViewController {
+final class FindImageViewController: UIViewController {
     
     private var imageView = ImageView(imageName: "")
     

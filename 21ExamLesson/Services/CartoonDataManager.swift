@@ -1,16 +1,5 @@
 import UIKit
 
-protocol CartoonDataProcessing {
-    
-    func addCartoon(cartoon: [CartoonModel])
-    func getCurrentCartoon() -> CartoonModel
-    func getCurrentCartoonNext() -> CartoonModel
-    func getCurrentCartoonLast() -> CartoonModel
-    func getFirstCartoon() -> CartoonModel
-    func findImage(_ inputName: String) -> CartoonModel?
-    
-}
-
 final class CartoonDataManager: CartoonDataProcessing {
     
     private var cartoons: [CartoonModel] = []
@@ -54,3 +43,13 @@ final class CartoonDataManager: CartoonDataProcessing {
     }
 }
 
+protocol CartoonDataProcessing {
+    
+    func addCartoon(cartoon: [CartoonModel])
+    func getCurrentCartoon() -> CartoonModel
+    func getCurrentCartoonNext() -> CartoonModel
+    func getCurrentCartoonLast() -> CartoonModel
+    func getFirstCartoon() -> CartoonModel
+    func findImage(_ inputName: String) -> CartoonModel?
+    
+}

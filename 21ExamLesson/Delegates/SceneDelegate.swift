@@ -13,7 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let cartoonManager = CartoonManager()
         let cartoonDataManager = CartoonDataManager()
         
-        let viewController = PanImageViewController()
+        let viewController = LicenseAgreementViewController()
+        //let viewController = PanImageViewController()
         //let viewController = FindImageViewController()
         // let viewController = ViewController()
         

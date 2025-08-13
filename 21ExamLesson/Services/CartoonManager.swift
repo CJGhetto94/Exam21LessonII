@@ -1,6 +1,7 @@
 import UIKit
 
-final class CartoonManager {
+final class CartoonManager: ICartoonManager {
+    
     func getCartoon() -> [CartoonModel] {
         [
             CartoonModel(imageName: "berserk", cartoonName: "Berserk"),
@@ -15,4 +16,21 @@ final class CartoonManager {
             CartoonModel(imageName: "cars", cartoonName: "Cars")
         ]
     }
+    private var cartoonGet = [CartoonModel]()
+    
+    func getCartoonArray() -> [CartoonModel] {
+        cartoonGet
+    }
+    func removeCartoonArray(index: Int) {
+        cartoonGet.remove(at: index)
+    }
+    func editFlag(index: Int) {
+        
+    }
+}
+
+protocol ICartoonManager {
+    func getCartoon() -> [CartoonModel]
+    func getCartoonArray() -> [CartoonModel]
+    func removeCartoonArray(index: Int)
 }

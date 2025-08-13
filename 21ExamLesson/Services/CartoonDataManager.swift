@@ -41,6 +41,12 @@ final class CartoonDataManager: CartoonDataProcessing {
         }
         return nil
     }
+    func removeCartoon(index: Int) {
+        cartoons.remove(at: index)
+    }
+    func editFlagMark(index: Int) {
+        
+    }
 }
 
 protocol CartoonDataProcessing {
@@ -51,5 +57,5 @@ protocol CartoonDataProcessing {
     func getCurrentCartoonLast() -> CartoonModel
     func getFirstCartoon() -> CartoonModel
     func findImage(_ inputName: String) -> CartoonModel?
-    
+    func removeCartoon(index: Int)
 }

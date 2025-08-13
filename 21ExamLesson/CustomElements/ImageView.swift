@@ -18,16 +18,17 @@ final class ImageView: UIImageView {
     
     private func setupImageView(_ imageName: String) {
         image = UIImage(named: imageName)
-        layer.cornerRadius = 20
+        layer.cornerRadius = 10
         clipsToBounds = true
-        contentMode = .scaleAspectFit
+   //     contentMode = .scaleToFill
+      //  contentMode = .scaleAspectFit
         isUserInteractionEnabled = true
     }
     
     func updateImageView(_ imageName: String) {
         image = UIImage(named: imageName)
     }
-    
+    /*
     private func setupLayout() {
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -37,7 +38,7 @@ final class ImageView: UIImageView {
             leadingAnchor.constraint(equalTo: leadingAnchor),
             trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
-    }
+    } */
 }
 
 

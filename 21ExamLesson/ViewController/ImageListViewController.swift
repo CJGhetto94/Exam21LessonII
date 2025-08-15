@@ -10,8 +10,7 @@ final class ImageListViewController: UIViewController {
     
     var cartoonDataManager: CartoonDataProcessing! //хранит методы
     var cartoonManager: ICartoonManager? //хранит массив
-    private let cartoonGetArray = CartoonManager()
-    
+
     private let tableView = UITableView()
     
     
@@ -31,7 +30,10 @@ extension ImageListViewController {
     func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(
+            UITableViewCell.self,
+            forCellReuseIdentifier: cellIdentifier
+        )
     }
     
 }
@@ -41,46 +43,66 @@ extension ImageListViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor
+            ),
+            tableView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor
+            ),
+            tableView.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor
+            ),
+            tableView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor
+            )
         ])
     }
 }
+//MARK: - SettingUITableView
 extension ImageListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let cellCount = cartoonGetArray.getCartoon().count
-        return cellCount
+        cartoonDataManager.getCartoon().count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        
-        cell.accessoryType = .checkmark
-        
-        
-        var configuration = UIListContentConfiguration.cell()
-        
-        let cartoon = cartoonGetArray.getCartoon()[indexPath.row]
-        
-        configuration.text = cartoon.cartoonName
-        configuration.image = UIImage(named: cartoon.imageName)
-        configuration.imageProperties.maximumSize = CGSize(width: 50, height: 50)
-    
-        cell.contentConfiguration = configuration
-        
-        return cell
-    }
-    
-}
-extension ImageListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let checkMarkAction = UIContextualAction(style: .destructive, title: "Mark") { _, cell, completion in
+    func tableView(
+        _ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: cellIdentifier,
+                for: indexPath
+            )
             
+            if editFlag == true {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+            
+            var configuration = UIListContentConfiguration.cell()
+            
+            let cartoon = cartoonDataManager.getCartoon()[indexPath.row]
+          
+            configuration.text = cartoon.cartoonName
+            configuration.image = UIImage(named: cartoon.imageName)
+            configuration.imageProperties.maximumSize = CGSize(width: 50, height: 50)
+            
+            cell.contentConfiguration = configuration
+            
+            return cell
+        }
+}
+//MARK: - Action UITableViewDelegate
+extension ImageListViewController: UITableViewDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let checkMarkAction = UIContextualAction(style: .destructive, title: "Mark")
+        { _, cell, completion in
+            self.editFlag = true
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completion in
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete")
+        { _, _, completion in
             self.cartoonDataManager.removeCartoon(index: indexPath.row)
             
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -91,5 +113,4 @@ extension ImageListViewController: UITableViewDelegate {
         let configuration = UISwipeActionsConfiguration(actions:[deleteAction,checkMarkAction])
         return configuration
     }
-    
 }

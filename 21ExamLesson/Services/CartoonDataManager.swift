@@ -5,6 +5,10 @@ final class CartoonDataManager: CartoonDataProcessing {
     private var cartoons: [CartoonModel] = []
     private var currentIndex = 0
     
+    func getCartoon() -> [CartoonModel] {
+        cartoons
+    }
+    
     func addCartoon(cartoon: [CartoonModel]) {
         self.cartoons.append(contentsOf: cartoon)
     }
@@ -44,11 +48,8 @@ final class CartoonDataManager: CartoonDataProcessing {
     func removeCartoon(index: Int) {
         cartoons.remove(at: index)
     }
-    func editFlagMark(index: Int) {
-        
-    }
 }
-
+//MARK: - CartoonDataProccesing protocol
 protocol CartoonDataProcessing {
     
     func addCartoon(cartoon: [CartoonModel])
@@ -58,4 +59,5 @@ protocol CartoonDataProcessing {
     func getFirstCartoon() -> CartoonModel
     func findImage(_ inputName: String) -> CartoonModel?
     func removeCartoon(index: Int)
+    func getCartoon() -> [CartoonModel]
 }

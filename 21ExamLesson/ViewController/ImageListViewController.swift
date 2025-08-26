@@ -5,9 +5,7 @@ import UIKit
 final class ImageListViewController: UIViewController {
     
     private let cellIdentifier = "cellIdentifier"
-    
-    private var editFlag = false
-    
+
     var cartoonDataManager: CartoonDataProcessing! //хранит методы
     var cartoonManager: ICartoonManager? //хранит массив
 
@@ -71,15 +69,17 @@ extension ImageListViewController: UITableViewDataSource {
                 for: indexPath
             )
             
-            if editFlag == true {
+            var configuration = UIListContentConfiguration.cell()
+            
+            let cartoon = cartoonDataManager.getCartoon()[indexPath.row]
+            
+            if cartoon.editFlag {
+                
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
             }
             
-            var configuration = UIListContentConfiguration.cell()
-            
-            let cartoon = cartoonDataManager.getCartoon()[indexPath.row]
           
             configuration.text = cartoon.cartoonName
             configuration.image = UIImage(named: cartoon.imageName)
@@ -98,7 +98,7 @@ extension ImageListViewController: UITableViewDelegate {
     ) -> UISwipeActionsConfiguration? {
         let checkMarkAction = UIContextualAction(style: .destructive, title: "Mark")
         { _, cell, completion in
-            self.editFlag = true
+            self.cartoonDataManager.editFlagCartoon(index: indexPath.row)
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete")

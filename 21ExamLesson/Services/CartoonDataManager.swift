@@ -45,8 +45,27 @@ final class CartoonDataManager: CartoonDataProcessing {
         }
         return nil
     }
+    
     func removeCartoon(index: Int) {
         cartoons.remove(at: index)
+    }
+    
+    func editFlagCartoon(index: Int) {
+        var cartoon = cartoons[index]
+        
+        cartoon.editFlag.toggle()
+        cartoons[index] = cartoon
+        
+        }
+    
+    func getEditFlagCartoon() -> [CartoonModel] {
+        var isEditFlagCartoon = [CartoonModel]()
+        for cartoon in cartoons {
+            if cartoon.editFlag {
+                isEditFlagCartoon.append(cartoon)
+            }
+        }
+        return isEditFlagCartoon
     }
 }
 //MARK: - CartoonDataProccesing protocol
@@ -60,4 +79,6 @@ protocol CartoonDataProcessing {
     func findImage(_ inputName: String) -> CartoonModel?
     func removeCartoon(index: Int)
     func getCartoon() -> [CartoonModel]
+    func editFlagCartoon(index: Int)
+    func getEditFlagCartoon() -> [CartoonModel]
 }

@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        let viewController = ImageListViewController()
+        let viewController = MarTableViewController()
         
         let cartoonManager = CartoonManager()
         let cartoonDataManager = CartoonDataManager()
@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let cartoons = cartoonManager.getCartoon().sorted(by: <)
         
         cartoonDataManager.addCartoon(cartoon: cartoons)
-        viewController.cartoonDataManager = buildCartoonManager()
+        viewController.cartoonDataManger = buildCartoonManager()
         printSortedArray(cartoonManager)
         
         window?.rootViewController = viewController

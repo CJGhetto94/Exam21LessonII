@@ -56,7 +56,7 @@ final class CartoonDataManager: CartoonDataProcessing {
         cartoon.editFlag.toggle()
         cartoons[index] = cartoon
         
-        }
+    }
     
     func getEditFlagCartoon() -> [CartoonModel] {
         var isEditFlagCartoon = [CartoonModel]()

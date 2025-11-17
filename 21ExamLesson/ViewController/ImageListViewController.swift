@@ -5,13 +5,11 @@ import UIKit
 final class ImageListViewController: UIViewController {
     
     private let cellIdentifier = "cellIdentifier"
+    private let tableView = UITableView()
 
     var cartoonDataManager: CartoonDataProcessing! //хранит методы
-    var cartoonManager: ICartoonManager? //хранит массив
 
-    private let tableView = UITableView()
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -74,13 +72,11 @@ extension ImageListViewController: UITableViewDataSource {
             let cartoon = cartoonDataManager.getCartoon()[indexPath.row]
             
             if cartoon.editFlag {
-                
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
             }
             
-          
             configuration.text = cartoon.cartoonName
             configuration.image = UIImage(named: cartoon.imageName)
             configuration.imageProperties.maximumSize = CGSize(width: 50, height: 50)

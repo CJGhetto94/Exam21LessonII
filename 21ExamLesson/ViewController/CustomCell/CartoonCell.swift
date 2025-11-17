@@ -4,6 +4,8 @@ import UIKit
 
 final class CartoonCell: UITableViewCell {
     
+    var delegateEditFlat: ICheckMarkEditFlagDelegate?
+    
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     
@@ -132,6 +134,15 @@ private extension CartoonCell {
     }
 }
 
-extension CartoonCell: UITableViewDelegate {
- //   func table
+extension CartoonCell {
+    private func addAction() {
+        let action = UIAction { _ in
+            self.delegateEditFlat?.editFlagAction()
+        }
+        addAction(action, for: .touchUpInside)
+    }
+}
+
+protocol ICheckMarkEditFlagDelegate {
+    func editFlagAction()
 }

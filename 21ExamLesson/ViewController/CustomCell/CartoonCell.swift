@@ -65,7 +65,11 @@ private extension CartoonCell {
     
     func setupCheckMarkButton() {
         checkMackButton.tintColor = .blue
+        let action = UIAction { _ in
+            self.delegateEditFlat?.editFlagAction(cell: self)
+        }
         
+        checkMackButton.addAction(action, for: .touchUpInside)
     }
 }
 //MARK: - Setup Layout
@@ -134,15 +138,8 @@ private extension CartoonCell {
     }
 }
 
-extension CartoonCell {
-    private func addAction() {
-        let action = UIAction { _ in
-            self.delegateEditFlat?.editFlagAction()
-        }
-        addAction(action, for: .touchUpInside)
-    }
-}
+
 
 protocol ICheckMarkEditFlagDelegate {
-    func editFlagAction()
+    func editFlagAction(cell: CartoonCell)
 }

@@ -1,6 +1,12 @@
 import UIKit
 
 final class CartoonDataManager: CartoonDataProcessing {
+    func toogle(product: CartoonModel) {
+        if let index = cartoons.firstIndex(of: product) {
+            cartoons[index].editFlag.toggle()
+        }
+    }
+    
     
     private var cartoons: [CartoonModel] = []
     private var currentIndex = 0
@@ -80,5 +86,6 @@ protocol CartoonDataProcessing {
     func removeCartoon(index: Int)
     func getCartoon() -> [CartoonModel]
     func editFlagCartoon(index: Int)
+    func toogle(product: CartoonModel)
     func getEditFlagCartoon() -> [CartoonModel]
 }

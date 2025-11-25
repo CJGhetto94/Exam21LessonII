@@ -25,7 +25,12 @@ final class MarTableViewController: UITableViewController {
         ) as? CartoonCell else {
             return UITableViewCell()
         }
-        cell.delegateEditFlat = self
+        cell.actionButton = { cellHidden in
+            guard let indexPath = tableView.indexPath(for: cell) else { return }
+            self.cartoonDataManger.toogle(product: self.cartoonDataManger.getEditFlagCartoon()[indexPath.row])
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+     
         let cartoon = cartoonDataManger.getEditFlagCartoon()[indexPath.row]
         
         cell.configure(cartoon: cartoon)
@@ -36,10 +41,3 @@ final class MarTableViewController: UITableViewController {
     }
 }
 
-extension MarTableViewController: ICheckMarkEditFlagDelegate {
-    func editFlagAction(cell: CartoonCell) {
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        cartoonDataManger.toogle(product: cartoonDataManger.getEditFlagCartoon()[indexPath.row])
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-    }
-}

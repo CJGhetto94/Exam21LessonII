@@ -1,16 +1,16 @@
-//  Created by mac on 25.08.2025.
-//
 import UIKit
 
 final class CartoonCell: UITableViewCell {
     
-    var delegateEditFlat: ICheckMarkEditFlagDelegate?
+    var actionButton: ((CartoonCell) -> ())?
     
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     
     private let imageCartoon = UIImageView()
     private let checkMackButton = UIButton()
+    
+    private var toogleCheckMark = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -20,13 +20,14 @@ final class CartoonCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     func configure(cartoon: CartoonModel) {
         titleLabel.text = cartoon.cartoonName
         descriptionLabel.text = cartoon.descriptionCartoon
         imageCartoon.image = UIImage(named: cartoon.imageName)
+        toogleCheckMark = cartoon.editFlag
         
-        let checkMark = cartoon.editFlag ? "checkmark.square.fill" : "checkmark"
+        
+        let checkMark = toogleCheckMark ? "checkmark.square.fill" : "checkmark.square"
         checkMackButton.setImage(UIImage(systemName: checkMark), for: .normal)
         selectionStyle = .none
     }
@@ -41,6 +42,7 @@ private extension CartoonCell {
         setupCheckMarkButton()
         setupLayout()
     }
+    
     func addSubView() {
         [titleLabel, descriptionLabel, imageCartoon, checkMackButton].forEach { view in
             contentView.addSubview(view)
@@ -66,7 +68,9 @@ private extension CartoonCell {
     func setupCheckMarkButton() {
         checkMackButton.tintColor = .blue
         let action = UIAction { _ in
-            self.delegateEditFlat?.editFlagAction(cell: self)
+            self.toogleCheckMark.toggle()
+            let cell = CartoonCell()
+            self.actionButton?(cell)
         }
         
         checkMackButton.addAction(action, for: .touchUpInside)
@@ -140,6 +144,3 @@ private extension CartoonCell {
 
 
 
-protocol ICheckMarkEditFlagDelegate {
-    func editFlagAction(cell: CartoonCell)
-}

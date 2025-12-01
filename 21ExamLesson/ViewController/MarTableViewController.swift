@@ -26,12 +26,12 @@ final class MarTableViewController: UITableViewController {
         }
         
         let cartoon = cartoonDataManger.getEditFlagCartoon()[indexPath.row]
-    
+        
         cell.action = { myCell in
             if let index = tableView.indexPath(for: myCell) {
                 let cartoons = self.cartoonDataManger.getEditFlagCartoon()[index.row]
                 self.cartoonDataManger.toogle(product: cartoons)
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.tableView.deleteRows(at: [index], with: .automatic)
             }
         }
         

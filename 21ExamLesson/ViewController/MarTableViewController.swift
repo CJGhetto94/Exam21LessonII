@@ -7,12 +7,11 @@ final class MarTableViewController: UITableViewController {
     var cartoonDataManger: CartoonDataProcessing!
     
     private let cellIdentifier = "cellIdentifier"
-    private let cartooCell = CartoonCell()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.separatorStyle = .none
         tableView.register(CartoonCell.self, forCellReuseIdentifier: cellIdentifier)
-        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -25,19 +24,20 @@ final class MarTableViewController: UITableViewController {
         ) as? CartoonCell else {
             return UITableViewCell()
         }
-        cell.actionButton = { cellHidden in
-            guard let indexPath = tableView.indexPath(for: cell) else { return }
-            self.cartoonDataManger.toogle(product: self.cartoonDataManger.getEditFlagCartoon()[indexPath.row])
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
-     
-        let cartoon = cartoonDataManger.getEditFlagCartoon()[indexPath.row]
         
+        let cartoon = cartoonDataManger.getEditFlagCartoon()[indexPath.row]
+    
+        cell.action = { myCell in
+            if let index = tableView.indexPath(for: myCell) {
+                let cartoons = self.cartoonDataManger.getEditFlagCartoon()[index.row]
+                self.cartoonDataManger.toogle(product: cartoons)
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
+        
+        cell.selectionStyle = .none
         cell.configure(cartoon: cartoon)
         
         return cell
-        
-        
     }
 }
-
